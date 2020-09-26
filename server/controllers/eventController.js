@@ -97,6 +97,7 @@ module.exports = {
             Event.create({
                 eventName: req.body.eventName,
                 eventDesc: req.body.eventDesc,
+                eventImage: req.body.eventImage,
                 eventStartDate: faker.date.future(),
             }).then(
                 function (event) {
@@ -105,6 +106,7 @@ module.exports = {
                         "createdEvent": {
                             "event_id": event.event_id,
                             "eventName": event.eventName,
+                            "eventImage": event.eventImage,
                             "eventDesc": event.eventDesc,
                         },
                     }

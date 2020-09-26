@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test-Web-1 Documentations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
+          integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ=="
+          crossorigin="anonymous"/>
+</head>
+<body>
+<div class="columns">
+    <div class="column">
+        <section class="hero is-info is-bold is-fullheight">
+            <div class="hero-head">
+
+            </div>
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Test-Web-1 API Documentations
+                    </h1>
+                </div>
+            </div>
+            <div class="hero-foot">
+
+            </div>
+        </section>
+        <main>
+            <h1 class="title mt-5 has-text-centered has-text-weight-bold">
+                Usage
+            </h1>
+            <hr/>
+            <section id="users">
+                <div class="users-wrapper columns">
+                    <div class="column">
+
+                        <div class="content">
+                            <ul>
+                                <li>
+                                    <h3 class="has-text-weight-bold is-size-5">
+                                        <bold>/users</bold>
+                                        endpoint:
+                                    </h3>
+                                    <ol type="1">
+                                        <li>
+                                            <code>
+                                                GET http://localhost:9000/users
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>null</code>
+                                            <p>Returns all users registered in the website </p>
+                                        </li>
+                                        <li>
+                                            <code>
+                                                POST http://localhost:9000/users
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>
+                                                {
+                                                "userName": "Insert username here"
+                                                }
+                                            </code>
+                                            <p>Creates new user for the website</p>
+                                        </li>
+                                        <li>
+                                            <code>
+                                                PUT http://localhost:9000/users/:id
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>
+                                                {
+                                                "userName: "insert changed username"
+                                                }
+                                            </code>
+                                            <p>Set a new username for a specific userId</p>
+                                        </li>
+                                        <li>
+                                            <code>
+                                                DELETE http://localhost:9000/users/:id
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>
+                                                null
+                                            </code>
+                                            <p>Deletes a specific user based on userId</p>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <h3 class="has-text-weight-bold is-size-5">
+                                        <bold>/events</bold>
+                                        endpoint:
+                                    </h3>
+                                    <ol type="1">
+                                        <li>
+                                            <code>
+                                                GET http://localhost:9000/events
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>null</code>
+                                            <p>Returns all events in the website </p>
+                                        </li>
+                                        <li>
+                                            <code>
+                                                GET http://localhost:9000/events/:id
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>null</code>
+                                            <p>Returns a specific event in the website based on the eventId </p>
+                                        </li>
+                                        <li>
+                                            <code>
+                                                POST http://localhost:9000/events
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>
+                                                {
+                                                "eventName": "Insert event name here",
+                                                "eventDesc": "Insert event description here",
+                                                "eventImage": "Insert event image URL here"
+                                                }
+                                            </code>
+                                            <p>Creates new event for the website</p>
+                                        </li>
+                                        <li>
+                                            <code>
+                                                PUT http://localhost:9000/events/:id
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>
+                                                {
+                                                "eventName": "Insert event name here",
+                                                "eventDesc": "Insert event description here",
+                                                "eventImage": "Insert event image URL here"
+                                                }
+                                            </code>
+                                            <p>Update properties of an event.</p>
+                                        </li>
+                                        <li>
+                                            <code>
+                                                DELETE http://localhost:9000/events/:id
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>
+                                                null
+                                            </code>
+                                            <p>Deletes a specific event based on eventId</p>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <h3 class="has-text-weight-bold is-size-5">
+                                        <bold>/events/:id/users</bold>
+                                        endpoint:
+                                    </h3>
+                                    <ol type="1">
+
+                                        <li>
+                                            <code>
+                                                GET http://localhost:9000/events/:id/users
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>null</code>
+                                            <p>Returns all users attending a specific event. </p>
+                                        </li>
+                                        <li>
+                                            <code>
+                                                POST http://localhost:9000/events/:id/users
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>
+                                                {
+                                                "user_id": "Insert userId here"
+                                                }
+                                            </code>
+                                            <p>Add user to an event's attendance list</p>
+                                        </li>
+
+                                        <li>
+                                            <code>
+                                                DELETE http://localhost:9000/events/:id/users
+                                            </code>
+                                            <p class="has-text-weight-bold">Request body:</p>
+                                            <code>
+                                                {
+                                                "user_id": "Insert userId here"
+                                                }
+                                            </code>
+                                            <p>Remove a user from a specific event</p>
+                                        </li>
+                                    </ol>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+</body>
+</html>

@@ -35,7 +35,7 @@ Add attendance list for each event with the following requirements:
 
 ## Resources
 - A very simple ExpressJS API is included in this repo. You may add or modify the API to fit your needs if you wish so.
-
+- You can find the API documentation  [here](https://usthing.github.io/Test-Web-1)
 ## Restrictions :no_entry: 
 - You are not allowed to share/discuss any part of this test with anyone :angry:
     - Once found, you will be immediately disqualified

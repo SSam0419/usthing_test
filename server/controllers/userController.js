@@ -19,6 +19,17 @@ module.exports = {
             return res.status(200).json(users);
         });
     },
+    apiGetId: function (req, res) {
+        User.findOne({where:{user_id: req.params.id},include: Event}).then(function (users) {
+            if(users != null) {
+                return res.status(200).json(users);
+            } else {
+                return res.status(200).json({
+                    "msg": "user not found"
+                })
+            }
+        });
+    },
     apiPost: function (req, res) {
         if (Object.keys(req.body).length) {
 

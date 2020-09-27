@@ -14,7 +14,7 @@ const UserEvent = require('../models/userEventModel')(sequelize, Sequelize, User
 
 
 //COUNTS random, user will always be more than events
-const EVENT_COUNT = Math.round(Math.random()*(10-1)+1);
+const EVENT_COUNT = Math.round(Math.random()*(20-10)+10);
 const USER_COUNT =  Math.round(Math.random()*(2*EVENT_COUNT-EVENT_COUNT)+EVENT_COUNT);
 
 //Random Event data
@@ -76,12 +76,24 @@ module.exports = {
     },
     apiGetId: function (req, res) {
         Event.findOne({where: {event_id: req.params.id}, include: User}).then(function (events) {
-            return res.status(200).json(events);
+            if(events != null) {
+                return res.status(200).json(events);
+            } else {
+                return res.status(200).json({
+                    "msg": "event not found"
+                })
+            }
         });
     },
     apiGetUsers: function (req, res) {
         Event.findOne({where: {event_id: req.params.id}, include: User}).then(event => {
-            return res.status(200).json(event.Users);
+            if(event != null) {
+                return res.status(200).json(event.Users);
+            } else {
+                return res.status(200).json({
+                    "msg": "event not found"
+                })
+            }
         })
     },
     //GET random image
@@ -126,7 +138,7 @@ module.exports = {
         }
     }
     ,
-    //POST create new event
+    //POST assign user to event
     apiPostUsers: function (req, res) {
         if (Object.keys(req.body).length) {
 
@@ -134,19 +146,25 @@ module.exports = {
                 user_id: req.body.user_id,
             }}).then(
                 function (user) {
-                    Event.findOne({where: {event_id: req.params.id}}).then(
-                        function (event) {
-                            event.addUser(user).then(user => {
-                                let sent = {
-                                    "msg": "success",
-                                    "addedUserToEvent": {
-                                        "event_id": event.event_id,
-                                        "eventName": event.eventName
-                                    },
-                                }
-                                res.status(200).json(sent);
-                            })
-                        });
+                    if(user != null) {
+                        Event.findOne({where: {event_id: req.params.id}}).then(
+                            function (event) {
+                                event.addUser(user).then(user => {
+                                    let sent = {
+                                        "msg": "success",
+                                        "addedUserToEvent": {
+                                            "event_id": event.event_id,
+                                            "eventName": event.eventName
+                                        },
+                                    }
+                                    res.status(200).json(sent);
+                                })
+                            });
+                    } else {
+                        return res.status(200).json({
+                            "msg": "user not found in database, create using POST /users endpoint!"
+                        })
+                    }
                 }
             ).catch(function (err) {
                 let sent = {
@@ -239,62 +257,39 @@ module.exports = {
         }
     }
     ,
-    //POST create new event
-    apiPostUsers: function (req, res) {
-        if (Object.keys(req.body).length) {
 
-            User.findOne({where:{
-                    user_id: req.body.user_id,
-                }}).then(
-                function (user) {
-                    Event.findOne({where: {event_id: req.params.id}}).then(
-                        function (event) {
-                            event.addUser(user).then(user => {
-                                let sent = {
-                                    "msg": "success",
-                                    "addedUserToEvent": {
-                                        "event_id": event.event_id,
-                                        "eventName": event.eventName
-                                    },
-                                }
-                                res.status(200).json(sent);
-                            })
-                        });
-                }
-            ).catch(function (err) {
-                let sent = {
-                    msg: "create event error: " + err,
-                }
-                return res.status(400).json(sent);
-            });
-        } else {
-            let sent = {
-                msg: "No body content!",
-            }
-            return res.status(400).json(sent);
-        }
-    }
-    ,
-    //POST create new event
+    //POST remove user from event
     apiDeleteUsers: function (req, res) {
         if (Object.keys(req.body).length) {
             User.findOne({where:{
                     user_id: req.body.user_id,
                 }}).then(
                 function (user) {
-                    Event.findOne({where: {event_id: req.params.id}}).then(
-                        function (event) {
-                            event.removeUser(user).then(user => {
-                                let sent = {
-                                    "msg": "success",
-                                    "removedUserFromEvent": {
-                                        "event_id": event.event_id,
-                                        "eventName": event.eventName
-                                    },
-                                }
-                                res.status(200).json(sent);
-                            })
-                        });
+                    if(user != null) {
+                        Event.findOne({where: {event_id: req.params.id}}).then(
+                            function (event) {
+                                event.removeUser(user).then(user => {
+                                    if(user) {
+                                        let sent = {
+                                            "msg": "success",
+                                            "removedUserFromEvent": {
+                                                "event_id": event.event_id,
+                                                "eventName": event.eventName
+                                            },
+                                        }
+                                        res.status(200).json(sent);
+                                    } else {
+                                        res.status(200).json({
+                                            "msg": "user not found in event"
+                                        })
+                                    }
+                                })
+                            });
+                    } else {
+                        return res.status(200).json({
+                            "msg": "user not found in event"
+                        })
+                    }
                 }
             ).catch(function (err) {
                 let sent = {

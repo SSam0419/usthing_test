@@ -7,6 +7,9 @@ let user = require("../controllers/userController");
 router.get('/', function (req, res) {
     user.apiGet(req, res);
 });
+router.get('/:id', function (req, res) {
+    user.apiGetId(req, res);
+});
 // POST user data
 router.post("/", function (req, res) {
     user.apiPost(req, res);

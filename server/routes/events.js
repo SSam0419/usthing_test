@@ -17,10 +17,7 @@ router.get("/:id/users", function (req, res) {
     events.apiGetUsers(req, res);
 });
 
-//GET random images
-router.get("/getRandomEventImage", function (req, res) {
-   events.apiGetRandomImage(req, res);
-});
+
 
 // POST event data
 router.post("/", function (req, res) {

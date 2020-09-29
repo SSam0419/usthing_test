@@ -96,12 +96,7 @@ module.exports = {
             }
         })
     },
-    //GET random image
-    apiGetRandomImage: function (req, res) {
-        return res.status(200).json({
-            "randomImageURL": faker.image.image(),
-        })
-    },
+
     //POST create new event
     apiPost: function (req, res) {
         if (Object.keys(req.body).length) {
@@ -190,6 +185,7 @@ module.exports = {
                     event.update({
                         eventName: req.body.eventName,
                         eventDesc: req.body.eventDesc,
+                        eventImage: req.body.eventImage,
                         eventStartDate: faker.date.future(),
                     }).then(event => {
                         let sent = {
@@ -197,6 +193,7 @@ module.exports = {
                             "updatedEvent": {
                                 "event_id": event.event_id,
                                 "eventName": event.eventName,
+                                "eventImage": event.eventImage,
                                 "eventDesc": event.eventDesc,
                             },
                         }

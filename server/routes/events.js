@@ -41,7 +41,7 @@ router.delete("/:id", function (req, res) {
     events.apiDelete(req, res);
 });
 //delete events
-router.delete("/:id/users", function (req, res) {
+router.delete("/:id/users/:user_id", function (req, res) {
     events.apiDeleteUsers(req, res);
 });
 

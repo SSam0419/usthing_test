@@ -98,7 +98,7 @@ module.exports = {
     }
     ,
     apiDelete: function (req, res) {
-        if (Object.keys(req.body).length) {
+
             User.findByPk(req.params.id).then(
                 function(user) {
                     user.destroy().then(user =>{
@@ -123,12 +123,7 @@ module.exports = {
                 }
                 return res.status(400).json(sent);
             });
-        } else {
-            let sent = {
-                msg: "No body content!",
-            }
-            return res.status(400).json(sent);
-        }
+
     }
     ,
 

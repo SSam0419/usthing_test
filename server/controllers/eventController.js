@@ -14,8 +14,8 @@ const UserEvent = require('../models/userEventModel')(sequelize, Sequelize, User
 
 
 //COUNTS random, user will always be more than events
-const EVENT_COUNT = Math.round(Math.random()*(20-10)+10);
-const USER_COUNT =  Math.round(Math.random()*(2*EVENT_COUNT-EVENT_COUNT)+EVENT_COUNT);
+const EVENT_COUNT = Math.round(Math.random() * (20 - 10) + 10);
+const USER_COUNT = Math.round(Math.random() * (2 * EVENT_COUNT - EVENT_COUNT) + EVENT_COUNT);
 
 //Random Event data
 let randomEventData = [];
@@ -49,20 +49,20 @@ let user;
 sequelize.sync({force: true})
     .then(() => {
         console.log("database created");
-        return Event.bulkCreate(randomEventData).then(()=>console.log("event data inserted")).catch(err=>console.error(err));
+        return Event.bulkCreate(randomEventData).then(() => console.log("event data inserted")).catch(err => console.error(err));
     }).then(() => {
-        return User.bulkCreate(randomUserData).then(()=>console.log("user data inserted")).catch(err=>console.error(err));
-    }).then(()=>{
-        return createRandomData();
+    return User.bulkCreate(randomUserData).then(() => console.log("user data inserted")).catch(err => console.error(err));
+}).then(() => {
+    return createRandomData();
 });
 
 async function createRandomData() {
-    for(let i = 0; i < USER_COUNT; i++) {
-        let userId = Math.round((Math.random()*(USER_COUNT-1))+1);
-        let eventId = Math.round((Math.random()*(EVENT_COUNT-1))+1);
+    for (let i = 0; i < USER_COUNT; i++) {
+        let userId = Math.round((Math.random() * (USER_COUNT - 1)) + 1);
+        let eventId = Math.round((Math.random() * (EVENT_COUNT - 1)) + 1);
 
-        let user = await User.findOne({where:{user_id: userId }});
-        let event = await Event.findOne({where:{event_id: eventId}});
+        let user = await User.findOne({where: {user_id: userId}});
+        let event = await Event.findOne({where: {event_id: eventId}});
         event.addUser(user);
     }
 }
@@ -76,7 +76,7 @@ module.exports = {
     },
     apiGetId: function (req, res) {
         Event.findOne({where: {event_id: req.params.id}, include: User}).then(function (events) {
-            if(events != null) {
+            if (events != null) {
                 return res.status(200).json(events);
             } else {
                 return res.status(200).json({
@@ -87,7 +87,7 @@ module.exports = {
     },
     apiGetUsers: function (req, res) {
         Event.findOne({where: {event_id: req.params.id}, include: User}).then(event => {
-            if(event != null) {
+            if (event != null) {
                 return res.status(200).json(event.Users);
             } else {
                 return res.status(200).json({
@@ -142,11 +142,13 @@ module.exports = {
     apiPostUsers: function (req, res) {
         if (Object.keys(req.body).length) {
 
-            User.findOne({where:{
-                user_id: req.body.user_id,
-            }}).then(
+            User.findOne({
+                where: {
+                    user_id: req.body.user_id,
+                }
+            }).then(
                 function (user) {
-                    if(user != null) {
+                    if (user != null) {
                         Event.findOne({where: {event_id: req.params.id}}).then(
                             function (event) {
                                 event.addUser(user).then(user => {
@@ -223,53 +225,49 @@ module.exports = {
     ,
     //DELETE delete event
     apiDelete: function (req, res) {
-        if (Object.keys(req.body).length) {
-            Event.findByPk(req.params.id).then(
-                function (event) {
-                    event.destroy().then(event => {
-                        let sent = {
-                            "msg": "success",
-                            "deletedEvent": {
-                                "event_id": event.event_id,
-                                "eventName": event.eventName,
-                                "eventDesc": event.eventDesc,
-                            },
-                        }
-                        res.status(200).json(sent);
-                    }).catch(err => {
-                        let sent = {
-                            msg: "delete event error: " + err,
-                        }
-                        return res.status(400).json(sent);
-                    });
-                }
-            ).catch(err => {
-                let sent = {
-                    msg: "delete event error: " + err,
-                }
-                return res.status(400).json(sent);
-            });
-        } else {
+        Event.findByPk(req.params.id).then(
+            function (event) {
+                event.destroy().then(event => {
+                    let sent = {
+                        "msg": "success",
+                        "deletedEvent": {
+                            "event_id": event.event_id,
+                            "eventName": event.eventName,
+                            "eventDesc": event.eventDesc,
+                        },
+                    }
+                    res.status(200).json(sent);
+                }).catch(err => {
+                    let sent = {
+                        msg: "delete event error: " + err,
+                    }
+                    return res.status(400).json(sent);
+                });
+            }
+        ).catch(err => {
             let sent = {
-                msg: "No body content!",
+                msg: "delete event error: " + err,
             }
             return res.status(400).json(sent);
-        }
+        });
+
     }
     ,
 
     //POST remove user from event
     apiDeleteUsers: function (req, res) {
-        if (Object.keys(req.body).length) {
-            User.findOne({where:{
-                    user_id: req.body.user_id,
-                }}).then(
+
+            User.findOne({
+                where: {
+                    user_id: req.params.user_id,
+                }
+            }).then(
                 function (user) {
-                    if(user != null) {
+                    if (user != null) {
                         Event.findOne({where: {event_id: req.params.id}}).then(
                             function (event) {
                                 event.removeUser(user).then(user => {
-                                    if(user) {
+                                    if (user) {
                                         let sent = {
                                             "msg": "success",
                                             "removedUserFromEvent": {
@@ -297,12 +295,6 @@ module.exports = {
                 }
                 return res.status(400).json(sent);
             });
-        } else {
-            let sent = {
-                msg: "No body content!",
-            }
-            return res.status(400).json(sent);
-        }
     }
     ,
 

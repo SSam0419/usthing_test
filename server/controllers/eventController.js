@@ -71,7 +71,7 @@ module.exports = {
     //GET all Event data
     apiGet: function (req, res) {
         Event.findAll({include: User}).then(function (events) {
-            return res.status(200).json(events);
+            return res.status(200).json({"events":events});
         });
     },
     apiGetId: function (req, res) {
@@ -88,7 +88,11 @@ module.exports = {
     apiGetUsers: function (req, res) {
         Event.findOne({where: {event_id: req.params.id}, include: User}).then(event => {
             if (event != null) {
-                return res.status(200).json(event.Users);
+                return res.status(200).json(
+                    {
+                        "users": event.Users
+                    }
+                );
             } else {
                 return res.status(200).json({
                     "msg": "event not found"

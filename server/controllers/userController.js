@@ -16,7 +16,11 @@ module.exports = {
     //GET all user data
     apiGet: function (req, res) {
         User.findAll({include: Event}).then(function (users) {
-            return res.status(200).json(users);
+            return res.status(200).json(
+                {
+                    "users": users
+                }
+            );
         });
     },
     apiGetId: function (req, res) {

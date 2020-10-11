@@ -1,4 +1,4 @@
-# USThing Recruitment Test (Frontend)
+# USThing Recruitment Test 1 (Frontend)
 
 ## Introduction
 In this test, you will make **a simple event management website**. There are **4 tasks** that you must complete. You may search the internet or other sources for references freely during this test. This test will mainly use **[React](https://reactjs.org)** as a framework. **NodeJS installation** is needed.

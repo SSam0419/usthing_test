@@ -27,7 +27,7 @@ In this part, you will answer 3 simple coding questions in JavaScript or TypeScr
 Given an array of positive integer (e.g. ```[2, 5, 12, 4, 19, 73, ...]```), return the sum of the array where the value is an odd number.
 
 #### Question 2
-Write a program which prints from 1 to 1000. When the number contains a digit that is 7, print "seven" instead.
+Write a program which prints from 1 to 1000. When the number contains a digit that is a multiple of 3, print "three" instead.
 
 #### Question 3
 Given an array of integer (e.g. ```[2, -5, 12, 7, -7, -219, ...]```), return the unique values in an array.

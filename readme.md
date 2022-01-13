@@ -11,7 +11,7 @@ Feel free to ask our members if you have any questions :+1:
 Happy Coding! :confetti_ball: 
 
 P.S. Remember to submit the ```codingQuestion``` file together with the web wpp.
-
+P.P.S. Please submit your answers even if you have not finished the tasks!!!!!
 ## Restrictions :no_entry: 
 - You are not allowed to share/discuss any part of this test with anyone :angry:
     - Once found, you will be immediately disqualified

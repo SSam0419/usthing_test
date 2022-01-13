@@ -76,6 +76,8 @@ Use [the API](https://usthing.github.io/Test-Web-1) to create functional **creat
 #### Task 4
 Design the web app to make it prettier
 
+---
+
 ## Resources :nerd_face:
 - A very simple ExpressJS API is included in this repo. You may add or modify the API to fit your needs if you wish so.
 - You can find the API documentation  [here](https://usthing.github.io/Test-Web-1)
